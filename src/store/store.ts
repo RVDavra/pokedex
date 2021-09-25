@@ -13,6 +13,7 @@ class StoreFactory {
   isLoading: boolean = false;
   selectedTag: string = '';
   search: string = '';
+  error: string = '';
 
   constructor () {
     makeAutoObservable(this)
@@ -67,6 +68,10 @@ class StoreFactory {
     this.data = data
   }
 
+  setError (error: string) {
+    this.error = error
+  }
+
   fetchData () {
     this.startLoading()
     const params = {
@@ -81,6 +86,7 @@ class StoreFactory {
     }
     axios.get(url, { params })
       .then(({ data }) => {
+        this.setError('')
         if (this.search) {
           if (data) {
             const response: PokeApiResponse = {
@@ -107,7 +113,11 @@ class StoreFactory {
       })
       .catch((err) => {
         this.setData(null)
-        console.error(err)
+        if (this.search) {
+          this.setError(`Can not find ${this.search}`)
+        } else {
+          this.setError(err.message)
+        }
       })
       .finally(() => this.stopLoading())
   }

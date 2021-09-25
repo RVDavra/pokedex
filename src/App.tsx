@@ -22,7 +22,7 @@ const App = observer(() => {
         <CircularProgress color='inherit' />
       </Backdrop>
       <SearchBar />
-      <Layout />
+      {store.error ? store.error : <Layout />}
     </div>
   )
 })
