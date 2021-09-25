@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { Fab, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { AutoSizer, List } from 'react-virtualized'
 import classes from './Layout.module.scss'
 import { observer } from 'mobx-react-lite'
@@ -32,17 +32,17 @@ const Layout = observer(() => {
   return (
     <Box className={classes.Layout}>
       <Box className={classes.PaginationContainer}>
-        <Button
-          variant='contained'
+        <Fab
+          color='primary'
           className={classes.prev}
           data-testid='prev'
           disabled={!store.isPrevPageAvailable}
           onClick={() => store.prev()}
         >
-          Prev
-        </Button>
+          &lt;
+        </Fab>
         <Box>
-          <FormControl variant='filled' sx={{ m: 1, minWidth: 120 }}>
+          <FormControl variant='filled' sx={{ m: 1, minWidth: 90 }}>
             <InputLabel id='page-size-input'>
               Page Size
             </InputLabel>
@@ -61,7 +61,7 @@ const Layout = observer(() => {
           </FormControl>
         </Box>
         <Box>
-          <FormControl variant='filled' sx={{ m: 1, minWidth: 120 }}>
+          <FormControl variant='filled' sx={{ m: 1, minWidth: 90 }}>
             <InputLabel id='type-input'>
               Type
             </InputLabel>
@@ -73,20 +73,20 @@ const Layout = observer(() => {
               label='Type'
             >
               {POKEMON_TYPES.map((item) => (
-                <MenuItem key={item || '0'} value={item || ''}> {item} </MenuItem>
+                <MenuItem key={item || 'None'} value={item || ''}> {item || '--'} </MenuItem>
               ))}
             </Select>
           </FormControl>
         </Box>
-        <Button
-          variant='contained'
+        <Fab
+          color='primary'
           className={classes.next}
           data-testid='next'
           disabled={!store.isNextPageAvailable}
           onClick={() => store.next()}
         >
-          Next
-        </Button>
+          &gt;
+        </Fab>
       </Box>
       {pokemonLayout}
     </Box>
