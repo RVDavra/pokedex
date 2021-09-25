@@ -1,13 +1,31 @@
-.Pokemon {
+.PokemonContainer {
     display: flex;
-    max-height: 100px;
-    margin-bottom: 4px;
-    .PokeAvatar {
-        width: 100px;
-        height: 100px;
-    }
-    .infoContainer {
+    padding: 4px;
+    width: 100%;
+    max-height: 134px;
+    .Pokemon {
         display: flex;
-        flex-direction: column;
+        margin: 8px;
+        width: 100%;
+        .PokeAvatar {
+            width: 100px;
+            height: 100px;
+        }
+        .infoContainer {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            .name {
+                text-transform: capitalize;
+                margin: 8px;
+            }
+        }
+        .moreInfoContainer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 12px;
+        }
     }
 }
+
