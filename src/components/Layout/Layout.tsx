@@ -43,12 +43,13 @@ const Layout = observer(() => {
         </Button>
         <Box>
           <FormControl variant='filled' sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id='demo-simple-select-standard-label'>
+            <InputLabel id='page-size-input'>
               Page Size
             </InputLabel>
             <Select
-              labelId='demo-simple-select-standard-label'
-              id='demo-simple-select-standard'
+              disabled={!!store.selectedTag}
+              labelId='page-size-input'
+              id='page-size-input-select'
               value={store.pageSize}
               onChange={(event) => store.changePageSize(+event.target.value)}
               label='Page Size'
@@ -56,6 +57,24 @@ const Layout = observer(() => {
               <MenuItem value={10}>10</MenuItem>
               <MenuItem value={20}>20</MenuItem>
               <MenuItem value={50}>50</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+        <Box>
+          <FormControl variant='filled' sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id='type-input'>
+              Type
+            </InputLabel>
+            <Select
+              labelId='type-input'
+              id='type-input-select'
+              value={store.selectedTag}
+              onChange={(event) => store.changeTag(event.target.value.toString())}
+              label='Type'
+            >
+              {POKEMON_TYPES.map((item) => (
+                <MenuItem key={item || '0'} value={item || ''}> {item} </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Box>
@@ -75,3 +94,27 @@ const Layout = observer(() => {
 })
 
 export default Layout
+
+const POKEMON_TYPES = [
+  '',
+  'normal',
+  'fighting',
+  'flying',
+  'poison',
+  'ground',
+  'rock',
+  'bug',
+  'ghost',
+  'steel',
+  'fire',
+  'water',
+  'grass',
+  'electric',
+  'psychic',
+  'ice',
+  'dragon',
+  'dark',
+  'fairy',
+  'unknown',
+  'shadow'
+]
