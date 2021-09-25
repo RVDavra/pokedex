@@ -4,6 +4,7 @@ import classes from './App.module.scss'
 import { observer } from 'mobx-react-lite'
 import { useStore } from './store/useStore'
 import { Backdrop, CircularProgress } from '@mui/material'
+import Layout from './components/Layout'
 
 const App = observer(() => {
   const store = useStore()
@@ -21,6 +22,7 @@ const App = observer(() => {
         <CircularProgress color='inherit' />
       </Backdrop>
       <SearchBar />
+      <Layout />
     </div>
   )
 })

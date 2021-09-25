@@ -1,22 +1,14 @@
 import axios from 'axios'
 import { makeAutoObservable } from 'mobx'
 import { createContext } from 'react'
+import { PokeApiResponse } from '../model/pokeApiResponse'
 
 const API_URL = 'https://pokeapi.co/api/v2/pokemon'
-
-const promiseAfterOneSec = (): Promise<string> => {
-  return new Promise<string>((resolve) => {
-    setTimeout(() => {
-      console.log('after 1 sec')
-      resolve('done')
-    }, 1000)
-  })
-}
 
 class StoreFactory {
   currentPageNo: number = 0;
   pageSize: number = 10;
-  data = {};
+  data: PokeApiResponse | null = null;
   isLoading: boolean = false;
 
   constructor () {
@@ -34,40 +26,55 @@ class StoreFactory {
     this.fetchData()
   }
 
+  get isPrevPageAvailable () {
+    return !!(this.data && this.data.previous)
+  }
+
   prev () {
-    this.currentPageNo--
-    this.fetchData()
+    if (this.isPrevPageAvailable) {
+      this.currentPageNo--
+      this.fetchData()
+    }
+  }
+
+  get isNextPageAvailable () {
+    return !!(this.data && this.data.next)
   }
 
   next () {
-    this.currentPageNo++
-    this.fetchData()
+    if (this.isNextPageAvailable) {
+      this.currentPageNo++
+      this.fetchData()
+    }
   }
 
-  loadingStart () {
+  startLoading () {
     this.isLoading = true
   }
 
-  loaded () {
+  stopLoading () {
     this.isLoading = false
   }
 
+  setData (data: PokeApiResponse | null) {
+    this.data = data
+  }
+
   fetchData () {
-    this.loadingStart()
+    this.startLoading()
     const params = {
       limit: this.pageSize,
       offset: this.pageSize * this.currentPageNo
     }
     axios.get(API_URL, { params })
       .then(({ data }) => {
-        this.data = data
-        console.log(data)
-        promiseAfterOneSec()
-          .then(() => {
-            console.log('done')
-            this.loaded()
-          })
+        this.setData(data)
       })
+      .catch((err) => {
+        this.setData(null)
+        console.error(err)
+      })
+      .finally(() => this.stopLoading())
   }
 }
 

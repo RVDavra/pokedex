@@ -1,5 +1,5 @@
-import { Button, Paper, TextField } from '@mui/material'
 import React from 'react'
+import { Button, Paper, TextField } from '@mui/material'
 import classes from './SearchBar.module.scss'
 
 const SearchBar = () => {
