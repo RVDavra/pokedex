@@ -1,7 +1,13 @@
 import React from 'react'
+import SearchBar from './components/SearchBar'
+import classes from './App.module.scss'
 
-function App () {
-  return <div className='App'> Done </div>
+const App = () => {
+  return (
+    <div className={classes.App} data-testid='app'>
+      <SearchBar />
+    </div>
+  )
 }
 
 export default App
