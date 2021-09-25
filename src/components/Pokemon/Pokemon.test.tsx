@@ -6,11 +6,13 @@ test('Pokemon name is displayed', () => {
   render(
     <Pokemon
       pokemon={{
-        name: 'Pickachu',
+        name: 'metapod',
         url: 'https://pokeapi.co/api/v2/pokemon/11/'
       }}
     />
   )
-  const pokemonNameTag = screen.getByText('Pickachu')
-  expect(pokemonNameTag).toBeInTheDocument()
+  setTimeout(() => {
+    const pokemonNameTag = screen.getByText('Metapod')
+    expect(pokemonNameTag).toBeInTheDocument()
+  }, 1000)
 })

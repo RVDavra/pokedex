@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useState } from 'react'
 import classes from './Pokemon.module.scss'
 import { Box } from '@mui/system'
 import { PokeApiResponseData } from '../../model/pokeApiResponse'
@@ -6,6 +6,7 @@ import { Avatar, Button, Paper, Typography } from '@mui/material'
 import useSWR from 'swr'
 import axios from 'axios'
 import { PokemonData } from '../../model/PokemonData'
+import PokemonModal from '../PokemonModal'
 
 interface IPokemonProps {
   pokemon: PokeApiResponseData;
@@ -14,6 +15,9 @@ interface IPokemonProps {
 
 const Pokemon: React.FC<IPokemonProps> = ({ pokemon, style }) => {
   const { data, error } = useSWR(pokemon.url, axios)
+  const [open, setOpen] = useState(false)
+  const handleClose = () => setOpen(false)
+  const openDialog = () => setOpen(true)
 
   if (error) {
     return (
@@ -56,7 +60,8 @@ const Pokemon: React.FC<IPokemonProps> = ({ pokemon, style }) => {
           </Box>
         </Box>
         <Box className={classes.moreInfoContainer}>
-          <Button className={classes.moreInfoBtn}>more</Button>
+          <Button className={classes.moreInfoBtn} onClick={openDialog}>more</Button>
+          <PokemonModal data={pokemonData} open={open} handleClose={handleClose} />
         </Box>
       </Paper>
     </div>
