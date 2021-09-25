@@ -15,9 +15,21 @@ interface IPokemonProps {
 const Pokemon: React.FC<IPokemonProps> = ({ pokemon, style }) => {
   const { data, error } = useSWR(pokemon.url, axios)
 
-  if (error) return <div>failed to load</div>
+  if (error) {
+    return (
+      <div className={classes.PokemonContainer} style={style}>
+        Failed to load
+      </div>
+    )
+  }
 
-  if (!data) return <div>loading...</div>
+  if (!data) {
+    return (
+      <div className={classes.PokemonContainer} style={style}>
+        Loading...
+      </div>
+    )
+  }
 
   const pokemonData: PokemonData = data.data
 
@@ -30,39 +42,21 @@ const Pokemon: React.FC<IPokemonProps> = ({ pokemon, style }) => {
         />
         <Box className={classes.infoContainer}>
           <Box>
-            <Typography
-              variant='h5'
-              textOverflow='ellipsis'
-              className={classes.name}
-            >
-              {pokemon.name}
-            </Typography>
-            <div>
-              <Typography
-                textOverflow='ellipsis'
-                className={[classes.name, pokemonData.types[0].type.name].join(
-                  ' '
-                )}
-              >
-                Type: {pokemonData.types[0].type.name}
-              </Typography>
-              {pokemonData.types[1] && (
+            <Typography className={classes.name}>{pokemon.name}</Typography>
+            <div className={classes.TypeContainer}>
+              {pokemonData.types.map((item) => (
                 <Typography
-                  textOverflow='ellipsis'
-                  className={[classes.name, pokemonData.types[1].type.name].join(
-                    ' '
-                  )}
+                  key={item.type.url}
+                  className={`${classes.type} ${item.type.name}`}
                 >
-                  Sub Type: {pokemonData.types[1].type.name}
+                  {item.type.name}
                 </Typography>
-              )}
+              ))}
             </div>
           </Box>
         </Box>
         <Box className={classes.moreInfoContainer}>
-          <Button variant='contained'>
-            More Info
-          </Button>
+          <Button className={classes.moreInfoBtn}>more</Button>
         </Box>
       </Paper>
     </div>

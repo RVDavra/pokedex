@@ -5,19 +5,36 @@
     max-height: 134px;
     .Pokemon {
         display: flex;
-        margin: 8px;
         width: 100%;
+        align-items: center;
+        margin-right: 10px;
         .PokeAvatar {
-            width: 100px;
-            height: 100px;
+            margin-left: 12px;
+            width: 72px;
+            height: 72px;
         }
         .infoContainer {
             display: flex;
             flex-direction: column;
-            flex: 1;
+            flex-grow: 1;
+            margin-left: 4px;
+            justify-content: center;
             .name {
                 text-transform: capitalize;
                 margin: 8px;
+                margin-left: 0;
+                font-weight: bold;
+            }
+            .TypeContainer {
+                display: flex;
+                .type {
+                    border: 1px solid;
+                    padding: 2px 8px;
+                    margin: 2px;
+                    border-radius: 4px;
+                    text-transform: capitalize;
+                    font-size: 12px;
+                }
             }
         }
         .moreInfoContainer {
@@ -25,6 +42,9 @@
             align-items: center;
             justify-content: center;
             margin: 0 12px;
+            .moreInfoBtn {
+                white-space: normal;
+            }
         }
     }
 }
