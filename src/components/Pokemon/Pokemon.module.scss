@@ -1,0 +1,13 @@
+.Pokemon {
+    display: flex;
+    max-height: 100px;
+    margin-bottom: 4px;
+    .PokeAvatar {
+        width: 100px;
+        height: 100px;
+    }
+    .infoContainer {
+        display: flex;
+        flex-direction: column;
+    }
+}
